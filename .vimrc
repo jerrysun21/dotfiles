@@ -22,20 +22,14 @@ set noswapfile                          " No swap file
 set ignorecase                          " ignore case when searching
 set smartcase                           " smartcase
 
-
 " configure the stats line, suppose to show git status, total lines, and percentage
 set laststatus=2
-set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
+set statusline=[%n]\ %<%F\ \ \ [%M%R%H%W%Y]\ \ %=\ line:%l/%L\ col:%c\ \ \ \ \ %{strftime(\"%I:%M:%S%p\")}
 
 " highlight the status bar when in insert mode
 if version >= 700
-  au InsertEnter * hi StatusLine ctermfg=235 ctermbg=2
-  au InsertLeave * hi StatusLine ctermbg=240 ctermfg=12
-endif
-
-" hint to keep lines short
-if exists('+colorcolumn')
-  set colorcolumn=120
+  au InsertEnter * hi StatusLine ctermbg=2
+  au InsertLeave * hi StatusLine ctermbg=240
 endif
 
 set background=dark
@@ -104,3 +98,20 @@ let g:ctrlp_max_height = 10
 set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
+
+" Indent blocks in visual mode
+vnoremap < <gv
+vnoremap > >gv
+
+" Unmap F1
+noremap <F1> <Esc>
+
+" Map jj to <ESC>
+inoremap jj <Esc>
+
+" Jump to start/end of lines with home row keys
+noremap <Leader>h ^
+noremap <Leader>l $
+
+" Clear search highlighting
+noremap <C-\> let @/=""<CR>
