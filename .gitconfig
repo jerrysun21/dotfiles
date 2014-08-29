@@ -1,0 +1,20 @@
+[user]
+	name = Jerry Sun
+	email = j.x.y.sun@gmail.com
+[core]
+	editor = subl -w
+[color]
+  ui = auto
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+[alias]
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  def = diffa
+  up = pull --rebase
+  glog = log --graph --all --decorate --date=local --date-order --pretty=format:'%h%x09[%an]%x09%cd%x09%s'
+  cr = checkout -b
