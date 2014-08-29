@@ -12,9 +12,20 @@ set clipboard=unnamed                   " use system clipboard
 set ruler                               " show row and column in footer
 set incsearch                           " show search results as I type
 
-" configure the stats line, suppose to show git status, total lines, and percentage
-set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
+set history=700                         " Set history
+set undolevels=700                      " Set history
 
+set nobackup                            " Disable swap/backup files
+set nowritebackup                       " Disable backup
+set noswapfile                          " No swap file
+
+set ignorecase                          " ignore case when searching
+set smartcase                           " smartcase
+
+
+" configure the stats line, suppose to show git status, total lines, and percentage
+set laststatus=2
+set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
 
 " highlight the status bar when in insert mode
 if version >= 700
@@ -27,10 +38,8 @@ if exists('+colorcolumn')
   set colorcolumn=120
 endif
 
-let g:solarized_termtrans=1
-let g:solarized_termcolors=256
 set background=dark
-colorscheme solarized
+colorscheme wombat256mod 
 
 " Map F5 to gundo shortcut
 nnoremap <F5> :GundoToggle<CR>
@@ -47,3 +56,51 @@ set splitright
 
 " Nerdtree toggle
 nnoremap <C-E> :NERDTreeToggle<CR>
+
+" Rebind <Leader> key
+" I like to have it here becuase it is easier to reach than the default and
+" it is next to ``m`` and ``n`` which I use for navigating between tabs.
+let mapleader = ","
+
+" Quick quit command
+noremap <Leader>e :quit<CR>  " Quit current window
+inoremap <Leader>e <C-C>:quit<CR>
+noremap <Leader>E :qa!<CR>   " Quit all windows
+
+" easier moving between tabs
+map <Leader>n <esc>:tabprevious<CR>
+map <Leader>m <esc>:tabnext<CR>
+
+" Quick save commands
+noremap <Leader>s :update<CR>
+inoremap <Leader>s <C-O>:update<CR>
+vnoremap <Leader>s <C-C>:update<CR>
+
+
+" Jedi-VIM settings
+let g:jedi#goto_definitions_command = "<leader>d"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#usages_command = ""
+
+" Omin menu bindings
+function! OmniPopup(action)
+    if pumvisible()
+           if a:action == 'j'
+              return "\<C-N>"
+           elseif a:action == 'k'
+              return "\<C-P>"
+           endif
+        endif
+    return a:action
+endfunction
+
+inoremap <silent>j <C-R>=OmniPopup('j')<CR>
+inoremap <silent>k <C-R>=OmniPopup('k')<CR>
+
+" ctrl p settings
+let g:ctrlp_working_path_mode="ra"
+let g:ctrlp_max_height = 10 
+set wildignore+=*.pyc
+set wildignore+=*_build/*
+set wildignore+=*/coverage/*
