@@ -2,7 +2,7 @@
 	name = Jerry Sun
 	email = j.x.y.sun@gmail.com
 [core]
-	editor = subl -w
+	editor = v
 [color]
   ui = auto
   diff = auto
